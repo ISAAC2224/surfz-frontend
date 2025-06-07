@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Headphones | SURFZ RESELLS</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #fff;
+      color: #000;
+      font-family: 'Arial Black', sans-serif;
+      text-align: center;
+    }
+
+    nav {
+      background-color: #000;
+      padding: 1rem 0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5rem;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #fff;
+      font-weight: bold;
+      padding: 10px 20px;
+      border-radius: 10px;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      background-color: #fff;
+      color: #000;
+    }
+
+    .cart-icon {
+      position: fixed;
+      top: 15px;
+      right: 20px;
+      background-color: #00ffcc;
+      color: black;
+      padding: 10px 18px;
+      border-radius: 30px;
+      font-weight: bold;
+      text-decoration: none;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+      z-index: 999;
+    }
+
+    .cart-icon:hover {
+      background-color: #00ddb3;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-top: 2rem;
+    }
+
+    .product-display {
+      margin: 3rem auto;
+      max-width: 1000px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 3rem;
+    }
+
+    .product-image {
+      flex: 1 1 400px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 400px;
+    }
+
+    .product-image img {
+      max-height: 100%;
+      max-width: 100%;
+      object-fit: contain;
+      border-radius: 10px;
+      transition: 0.3s ease;
+    }
+
+    .product-details {
+      flex: 1 1 300px;
+      text-align: left;
+    }
+
+    .buy-button {
+      margin-top: 2rem;
+    }
+
+    .buy-button button {
+      padding: 15px 30px;
+      font-size: 1rem;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      background-color: #00ffcc;
+      color: black;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .buy-button button:hover {
+      background-color: #00ddb3;
+    }
+
+    footer {
+      margin-top: 4rem;
+      padding: 3rem 1rem;
+      background-color: #111;
+      color: #fff;
+    }
+
+    .footer-section {
+      margin-bottom: 2rem;
+    }
+
+    .footer-section h3 {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      color: #00ffcc;
+    }
+
+    .footer-links a {
+      color: #ccc;
+      margin: 0 1rem;
+      text-decoration: none;
+      font-size: 0.9rem;
+    }
+
+    .footer-links a:hover {
+      color: #fff;
+    }
+
+    .subscribe input {
+      padding: 10px;
+      width: 250px;
+      border: none;
+      border-radius: 4px;
+      margin-right: 10px;
+    }
+
+    .subscribe button {
+      padding: 10px 20px;
+      background-color: #00ffcc;
+      color: black;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="#">Shop</a>
+    <a href="#">Drops</a>
+    <a href="contact.html">Contact</a>
+    <a href="shoes.html">Shoes</a>
+    <a href="outfits.html">Outfits</a>
+    <a href="shorts.html">Shorts</a>
+    <a href="bags.html">Bags</a>
+    <a href="headphones.html">Headphones</a>
+    <a href="about_us.html">About Us</a>
+  </nav>
+
+  <a href="cart.html" class="cart-icon">🛒 Cart (<span id="cart-count">0</span>)</a>
+
+  <h1>AirPods Max</h1>
+
+  <div class="product-display">
+    <div class="product-image">
+      <img src="IMG_1013-removebg-preview.png" alt="AirPods Max">
+    </div>
+
+    <div class="product-details">
+      <h2>$400</h2>
+      <p>Premium sound. Seamless style. Real resale energy.</p>
+      <div class="buy-button">
+        <button onclick="addToCart('AirPods Max', 400)">Add to Cart</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-section">
+      <h3>Contact Us</h3>
+      <p>Email: surfzresell@gmail.com</p>
+      <p>Instagram: @SurfzResell</p>
+    </div>
+
+    <div class="footer-section">
+      <h3>Main Menu</h3>
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="#">Shop</a>
+        <a href="shoes.html">Shoes</a>
+        <a href="outfits.html">Outfits</a>
+        <a href="shorts.html">Shorts</a>
+        <a href="bags.html">Bags</a>
+        <a href="headphones.html">Headphones</a>
+        <a href="contact.html">Contact</a>
+        <a href="about_us.html">About Us</a>
+      </div>
+    </div>
+
+    <div class="footer-section subscribe">
+      <h3>Subscribe</h3>
+      <p style="margin-bottom: 1rem;">Receive updates, access to exclusive steals, and more!</p>
+      <input type="email" placeholder="Enter your email">
+      <button>Subscribe</button>
+    </div>
+  </footer>
+
+  <script>
+    function addToCart(name, price) {
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      cart.push({ name, price, size: 'N/A' });
+      localStorage.setItem("cart", JSON.stringify(cart));
+      alert("Added to cart!");
+      updateCartCount();
+    }
+
+    function updateCartCount() {
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      document.getElementById("cart-count").textContent = cart.length;
+    }
+
+    updateCartCount();
+  </script>
+
+</body>
+</html>

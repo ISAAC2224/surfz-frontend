@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Shoes | SURFZ RESELLS</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #fff;
+      color: #000;
+      font-family: 'Arial Black', sans-serif;
+    }
+
+    nav {
+      background-color: #000;
+      padding: 1rem 0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5rem;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #fff;
+      font-weight: bold;
+      padding: 10px 20px;
+      border-radius: 10px;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      background-color: #fff;
+      color: #000;
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 2.5rem;
+    }
+
+    .grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+      padding: 2rem;
+    }
+
+    .product {
+      width: 300px;
+      text-align: center;
+      border: 2px solid #ccc;
+      padding: 1rem;
+      border-radius: 12px;
+      background: #f9f9f9;
+    }
+
+    .product img {
+      width: 100%;
+      height: 300px;
+      object-fit: contain;
+      border-radius: 10px;
+      background: white;
+      cursor: pointer;
+    }
+
+    .product h2 {
+      font-size: 1.2rem;
+      margin-top: 1rem;
+    }
+
+    select {
+      margin-top: 0.5rem;
+      padding: 8px;
+      width: 100%;
+      font-weight: bold;
+    }
+
+    .buy-button {
+      margin-top: 1rem;
+    }
+
+    .buy-button button {
+      padding: 10px 20px;
+      font-weight: bold;
+      border: none;
+      border-radius: 6px;
+      background-color: #00ffcc;
+      color: black;
+      cursor: pointer;
+    }
+
+    .footer {
+      margin-top: 4rem;
+      background: #111;
+      color: #fff;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .cart-icon {
+      position: fixed;
+      top: 15px;
+      right: 20px;
+      background-color: #00ffcc;
+      color: black;
+      padding: 10px 18px;
+      border-radius: 30px;
+      font-weight: bold;
+      text-decoration: none;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+      z-index: 999;
+    }
+
+    .cart-icon:hover {
+      background-color: #00ddb3;
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html">Home</a>
+  <a href="shoes.html">Shoes</a>
+  <a href="outfits.html">Outfits</a>
+  <a href="shorts.html">Shorts</a>
+  <a href="bags.html">Bags</a>
+  <a href="headphones.html">Headphones</a>
+  <a href="#">Drops</a>
+  <a href="contact.html">Contact</a>
+  <a href="about_us.html">About Us</a>
+</nav>
+
+<a href="cart.html" class="cart-icon">🛒 Cart (<span id="cart-count">0</span>)</a>
+
+<h1>Our Kicks</h1>
+<div class="grid">
+
+  <div class="product">
+    <img id="shoeImg0" src="cpfm_fuchsia_1.png" onclick="rotateImage('shoeImg0', 0)" alt="CPFM Fuchsia">
+    <h2>AF1 CPFM Fuchsia Dream</h2>
+    <p>$575</p>
+    <select id="size0">
+      <option value="">Select Size</option>
+      <option>8</option><option>9</option><option>10</option><option>11</option><option>12</option>
+    </select>
+    <div class="buy-button">
+      <button onclick="addToCart('AF1 CPFM Fuchsia Dream', 575, 'size0')">Add to Cart</button>
+    </div>
+  </div>
+
+  <div class="product">
+    <img id="shoeImg1" src="jordan5_front.png" onclick="rotateImage('shoeImg1', 1)" alt="Jordan 5">
+    <h2>Jordan 5 Metallic</h2>
+    <p>$275</p>
+    <select id="size1">
+      <option value="">Select Size</option>
+      <option>7.5</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option>
+    </select>
+    <div class="buy-button">
+      <button onclick="addToCart('Jordan 5 Metallic', 275, 'size1')">Add to Cart</button>
+    </div>
+  </div>
+
+  <div class="product">
+    <img src="balenciaga_runner.png" alt="Balenciaga Runner">
+    <h2>Balenciaga Runner</h2>
+    <p>$800</p>
+    <select id="size2">
+      <option value="">Select Size</option>
+      <option>EU 36</option><option>EU 37</option><option>EU 38</option><option>EU 39</option><option>EU 40</option><option>EU 41</option><option>EU 42</option><option>EU 43</option><option>EU 44</option><option>EU 45</option><option>EU 46</option>
+    </select>
+    <div class="buy-button">
+      <button onclick="addToCart('Balenciaga Runner', 800, 'size2')">Add to Cart</button>
+    </div>
+  </div>
+
+  <div class="product">
+    <img id="shoeImg3" src="cpfm_white_1.png" onclick="rotateImage('shoeImg3', 3)" alt="CPFM White">
+    <h2>AF1 CPFM White</h2>
+    <p>$550</p>
+    <select id="size3">
+      <option value="">Select Size</option>
+      <option>8</option><option>9</option><option>10</option><option>11</option><option>12</option>
+    </select>
+    <div class="buy-button">
+      <button onclick="addToCart('AF1 CPFM White', 550, 'size3')">Add to Cart</button>
+    </div>
+  </div>
+
+  <div class="product">
+    <img id="shoeImg4" src="rickowens_1.png" onclick="rotateImage('shoeImg4', 4)" alt="Rick Owens">
+    <h2>Rick Owens Porterville</h2>
+    <p>$650</p>
+    <select id="size4">
+      <option value="">Select Size</option>
+      <option>EU 37</option><option>EU 38</option><option>EU 39</option><option>EU 40</option><option>EU 41</option><option>EU 42</option><option>EU 43</option><option>EU 44</option><option>EU 45</option><option>EU 46</option>
+    </select>
+    <div class="buy-button">
+      <button onclick="addToCart('Rick Owens Porterville', 650, 'size4')">Add to Cart</button>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <p>&copy; 2025 SURFZ RESELLS | All Rights Reserved</p>
+</div>
+
+<script>
+  let images0 = ["cpfm_fuchsia_1.png", "cpfm_fuchsia_2.png"];
+  let index0 = 0, index1 = 0, index3 = 0, index4 = 0;
+
+  function rotateImage(id, idx) {
+    if (idx === 0) {
+      index0 = (index0 + 1) % images0.length;
+      document.getElementById(id).src = images0[index0];
+    } else if (idx === 1) {
+      index1++;
+      document.getElementById(id).src = index1 % 2 === 0 ? "jordan5_front.png" : "jordan5_back.png";
+    } else if (idx === 3) {
+      index3++;
+      document.getElementById(id).src = index3 % 2 === 0 ? "cpfm_white_1.png" : "cpfm_white_2.png";
+    } else if (idx === 4) {
+      index4++;
+      document.getElementById(id).src = index4 % 2 === 0 ? "rickowens_1.png" : "rickowens_2.png";
+    }
+  }
+
+  function addToCart(name, price, sizeId) {
+    const size = document.getElementById(sizeId).value;
+    if (!size) return alert("Please select a size!");
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    cart.push({ name, price, size });
+    localStorage.setItem("cart", JSON.stringify(cart));
+    alert("Added to cart!");
+    updateCartCount();
+  }
+
+  function updateCartCount() {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    document.getElementById("cart-count").textContent = cart.length;
+  }
+
+  updateCartCount();
+</script>
+
+</body>
+</html>
