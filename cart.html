@@ -187,24 +187,29 @@
     btn.disabled = true;
     btn.textContent = "Redirecting...";
 
+    console.log("🛒 Sending cart to backend:", cart);
+
     fetch('https://surfz-backend.onrender.com/create-checkout-session', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ cart })
     })
-    .then(res => res.json())
+    .then(res => {
+      console.log("📦 Backend response status:", res.status);
+      return res.json();
+    })
     .then(data => {
+      console.log("🎯 Stripe session response:", data);
       if (data.url) {
         window.location.href = data.url;
       } else {
-        console.log("Server responded without a URL:", data);
-        alert("Something went wrong. Try again later.");
+        alert("Something went wrong. Try again.");
         btn.disabled = false;
         btn.textContent = "Buy Now";
       }
     })
     .catch(error => {
-      console.error("Checkout error:", error);
+      console.error("❌ Checkout error:", error);
       alert("An error occurred during checkout.");
       btn.disabled = false;
       btn.textContent = "Buy Now";
