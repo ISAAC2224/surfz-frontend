@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Cart | SURFZ RESELLS</title>
+  <title>Bags | SURFZ RESELLS</title>
   <style>
     body {
       font-family: 'Arial Black', sans-serif;
@@ -17,8 +17,8 @@
       background-color: #000;
       padding: 1rem 0;
       display: flex;
-      flex-wrap: wrap;
       justify-content: center;
+      flex-wrap: wrap;
       gap: 1.5rem;
     }
 
@@ -36,69 +36,63 @@
       color: #000;
     }
 
-    .cart-container {
-      padding: 2rem;
+    .product-container {
+      max-width: 1100px;
+      margin: 2rem auto;
+      padding: 0 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 3rem;
+      justify-content: center;
     }
 
-    h1 {
-      text-align: center;
-      font-size: 2.5rem;
-      margin-top: 2rem;
+    .product-image {
+      flex: 1 1 400px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 2rem;
+    .product-image img {
+      max-width: 100%;
+      max-height: 400px;
+      object-fit: contain;
     }
 
-    th, td {
-      padding: 1rem;
-      border-bottom: 1px solid #ccc;
-      text-align: center;
+    .product-details {
+      flex: 1 1 300px;
     }
 
-    th {
-      background-color: #f2f2f2;
+    .color-selector {
+      display: flex;
+      gap: 10px;
+      margin: 1rem 0;
     }
 
-    .remove-btn {
-      padding: 6px 12px;
-      background-color: #ff4d4d;
-      color: #fff;
+    .color-circle {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      cursor: pointer;
+      border: 2px solid #ccc;
+    }
+
+    .color-circle.blue { background-color: #007bff; }
+    .color-circle.green { background-color: #28a745; }
+
+    button {
+      padding: 15px 30px;
+      font-size: 1rem;
+      margin-top: 1rem;
+      font-weight: bold;
       border: none;
       border-radius: 6px;
-      cursor: pointer;
-      font-weight: bold;
-    }
-
-    .remove-btn:hover {
-      background-color: #cc0000;
-    }
-
-    .total {
-      font-size: 1.2rem;
-      font-weight: bold;
-      margin-top: 1rem;
-      text-align: right;
-      padding-right: 2rem;
-    }
-
-    .buy-now-btn {
-      display: block;
-      width: fit-content;
-      margin: 2rem auto 0;
-      padding: 12px 28px;
       background-color: #00ffcc;
       color: black;
-      font-weight: bold;
-      border: none;
-      border-radius: 6px;
       cursor: pointer;
-      text-align: center;
     }
 
-    .buy-now-btn:hover {
+    button:hover {
       background-color: #00ddb3;
     }
 
@@ -108,6 +102,17 @@
       color: #fff;
       padding: 2rem;
       text-align: center;
+    }
+
+    #cartCount {
+      background-color: red;
+      color: white;
+      font-size: 0.8rem;
+      border-radius: 50%;
+      padding: 2px 6px;
+      position: relative;
+      top: -10px;
+      left: -10px;
     }
   </style>
 </head>
@@ -120,25 +125,26 @@
   <a href="shorts.html">Shorts</a>
   <a href="bags.html">Bags</a>
   <a href="headphones.html">Headphones</a>
+  <a href="cart.html">🛒 Cart <span id="cartCount">0</span></a>
 </nav>
 
-<div class="cart-container">
-  <h1>Your Cart</h1>
-  <table id="cartTable">
-    <thead>
-      <tr>
-        <th>Product</th>
-        <th>Size</th>
-        <th>Price</th>
-        <th>Remove</th>
-      </tr>
-    </thead>
-    <tbody>
-      <!-- Items will be inserted here -->
-    </tbody>
-  </table>
-  <div class="total" id="totalPrice">Total: $0</div>
-  <button class="buy-now-btn" id="buyNowBtn" onclick="buyNow()">Buy Now</button>
+<h1 style="text-align:center;">Goyard Duffle Bags</h1>
+
+<div class="product-container">
+  <div class="product-image">
+    <img id="mainImage" src="blue-bag.png" alt="Blue Goyard Bag">
+  </div>
+
+  <div class="product-details">
+    <h2 id="bagPrice">$3500</h2>
+
+    <div class="color-selector">
+      <div class="color-circle blue" onclick="changeBag('blue')"></div>
+      <div class="color-circle green" onclick="changeBag('green')"></div>
+    </div>
+
+    <button onclick="addToCart()">Add to Cart</button>
+  </div>
 </div>
 
 <div class="footer">
@@ -146,70 +152,46 @@
 </div>
 
 <script>
-  function loadCart() {
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
-    const tableBody = document.querySelector("#cartTable tbody");
-    const totalDiv = document.getElementById("totalPrice");
-    tableBody.innerHTML = "";
-    let total = 0;
+  let selectedColor = 'blue';
 
-    cart.forEach((item, index) => {
-      const row = document.createElement("tr");
-      row.innerHTML = `
-        <td>${item.name}</td>
-        <td>${item.size}</td>
-        <td>$${item.price}</td>
-        <td><button class="remove-btn" onclick="removeFromCart(${index})">Remove</button></td>
-      `;
-      tableBody.appendChild(row);
-      total += item.price;
-    });
-
-    totalDiv.textContent = `Total: $${total}`;
-  }
-
-  function removeFromCart(index) {
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
-    cart.splice(index, 1);
-    localStorage.setItem("cart", JSON.stringify(cart));
-    loadCart();
-  }
-
-  function buyNow() {
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
-    if (cart.length === 0) {
-      alert("Your cart is empty.");
-      return;
+  const bagInfo = {
+    blue: {
+      src: 'blue-bag.png',
+      price: '$3500'
+    },
+    green: {
+      src: 'green-bag.png',
+      price: '$3750'
     }
+  };
 
-    const btn = document.getElementById("buyNowBtn");
-    btn.disabled = true;
-    btn.textContent = "Redirecting...";
-
-    fetch('https://surfz-backend.onrender.com/create-checkout-session', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ cart })
-    })
-    .then(res => res.json())
-    .then(data => {
-      if (data.url) {
-        window.location.href = data.url;
-      } else {
-        alert("Failed to create checkout session.");
-        btn.disabled = false;
-        btn.textContent = "Buy Now";
-      }
-    })
-    .catch(error => {
-      console.error("Error:", error);
-      alert("An error occurred during checkout.");
-      btn.disabled = false;
-      btn.textContent = "Buy Now";
-    });
+  function changeBag(color) {
+    selectedColor = color;
+    document.getElementById("mainImage").src = bagInfo[color].src;
+    document.getElementById("bagPrice").textContent = bagInfo[color].price;
   }
 
-  loadCart();
+  function addToCart() {
+    const price = parseInt(bagInfo[selectedColor].price.replace('$', ''));
+    const item = {
+      name: `Goyard Bag (${selectedColor})`,
+      size: "Standard",
+      price: price
+    };
+
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    cart.push(item);
+    localStorage.setItem("cart", JSON.stringify(cart));
+    updateCartCount();
+    alert("Added to cart!");
+  }
+
+  function updateCartCount() {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    document.getElementById("cartCount").textContent = cart.length;
+  }
+
+  updateCartCount();
 </script>
 
 </body>
