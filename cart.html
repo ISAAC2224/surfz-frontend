@@ -138,7 +138,7 @@
     </tbody>
   </table>
   <div class="total" id="totalPrice">Total: $0</div>
-  <button class="buy-now-btn" onclick="buyNow()">Buy Now</button>
+  <button class="buy-now-btn" id="buyNowBtn" onclick="buyNow()">Buy Now</button>
 </div>
 
 <div class="footer">
@@ -177,10 +177,15 @@
 
   function buyNow() {
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const btn = document.getElementById("buyNowBtn");
+
     if (cart.length === 0) {
       alert("Your cart is empty.");
       return;
     }
+
+    btn.disabled = true;
+    btn.textContent = "Redirecting...";
 
     fetch('https://surfz-backend.onrender.com/create-checkout-session', {
       method: 'POST',
@@ -192,12 +197,17 @@
       if (data.url) {
         window.location.href = data.url;
       } else {
-        alert("Failed to create checkout session.");
+        console.log("Server responded without a URL:", data);
+        alert("Something went wrong. Try again later.");
+        btn.disabled = false;
+        btn.textContent = "Buy Now";
       }
     })
     .catch(error => {
-      console.error("Error:", error);
+      console.error("Checkout error:", error);
       alert("An error occurred during checkout.");
+      btn.disabled = false;
+      btn.textContent = "Buy Now";
     });
   }
 
