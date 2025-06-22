@@ -171,22 +171,14 @@
   function checkout() {
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-    const cleanCart = cart.map((item) => {
-      const cleanedName = item.name.replace(/\s*\([^)]*\)/g, '').trim();
-      return {
-        ...item,
-        name: cleanedName
-      };
-    });
-
-    console.log("📦 Sending cart to backend:", cleanCart);
+    console.log("📦 Sending cart to backend:", cart);
 
     fetch("https://surfz-backend.onrender.com/create-checkout-session", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({ items: cleanCart })
+      body: JSON.stringify({ items: cart })
     })
     .then((res) => res.json())
     .then((data) => {
