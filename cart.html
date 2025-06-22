@@ -147,8 +147,7 @@
       total += item.price;
 
       const imageCell = `<img src="https://surfz-backend.onrender.com/images/${item.image}" alt="${item.name}">`;
-      const detailLabel = item.name.toLowerCase().includes("bag") ? "Color" : "Size";
-      const detailCell = `<strong>${item.name}</strong><br>${detailLabel}: ${item.size}`;
+      const detailCell = `<strong>${item.name}</strong>`;
 
       tr.innerHTML = `
         <td>${imageCell}</td>
@@ -173,12 +172,14 @@
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
 
     const cleanCart = cart.map((item) => {
-      const cleanedName = item.name.replace(/\((\s*\d+(\.\d+)?|EU \d+)\)/g, '').trim();
+      const cleanedName = item.name.replace(/\s*\([^)]*\)/g, '').trim();
       return {
         ...item,
         name: cleanedName
       };
     });
+
+    console.log("📦 Sending cart to backend:", cleanCart);
 
     fetch("https://surfz-backend.onrender.com/create-checkout-session", {
       method: "POST",
