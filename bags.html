@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bags | SURFZ RESELLS</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #fff;
+      color: #000;
+      font-family: 'Arial Black', sans-serif;
+    }
+
+    nav {
+      background-color: #000;
+      padding: 1rem 0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5rem;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #fff;
+      font-weight: bold;
+      padding: 10px 20px;
+      border-radius: 10px;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      background-color: #fff;
+      color: #000;
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 2.5rem;
+    }
+
+    .grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+      padding: 2rem;
+    }
+
+    .product {
+      width: 300px;
+      text-align: center;
+      border: 2px solid #ccc;
+      padding: 1rem;
+      border-radius: 12px;
+      background: #f9f9f9;
+    }
+
+    .product img {
+      width: 100%;
+      height: 300px;
+      object-fit: contain;
+      border-radius: 10px;
+      background: white;
+      cursor: pointer;
+    }
+
+    .product h2 {
+      font-size: 1.2rem;
+      margin-top: 1rem;
+    }
+
+    select {
+      margin-top: 0.5rem;
+      padding: 8px;
+      width: 100%;
+      font-weight: bold;
+    }
+
+    .buy-button {
+      margin-top: 1rem;
+    }
+
+    .buy-button button {
+      padding: 10px 20px;
+      font-weight: bold;
+      border: none;
+      border-radius: 6px;
+      background-color: #00ffcc;
+      color: black;
+      cursor: pointer;
+    }
+
+    .footer {
+      margin-top: 4rem;
+      background: #111;
+      color: #fff;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .cart-icon {
+      position: fixed;
+      top: 15px;
+      right: 20px;
+      background-color: #00ffcc;
+      color: black;
+      padding: 10px 18px;
+      border-radius: 30px;
+      font-weight: bold;
+      text-decoration: none;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+      z-index: 999;
+    }
+
+    .cart-icon:hover {
+      background-color: #00ddb3;
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html">Home</a>
+  <a href="footwear.html">Footwear</a>
+  <a href="clothing.html">Clothing</a>
+  <a href="shorts.html">Shorts</a>
+  <a href="bags.html">Bags</a>
+  <a href="headphones.html">Headphones</a>
+  <a href="accessories.html">Accessories</a>
+</nav>
+
+<a href="cart.html" class="cart-icon">🛒 Cart (<span id="cart-count">0</span>)</a>
+
+<h1>Our Bags</h1>
+<div class="grid" id="product-grid"></div>
+
+<div class="footer">
+  <p>&copy; 2025 SURFZ RESELLS | All Rights Reserved</p>
+</div>
+
+<script>
+  const products = [
+    {
+      name: "Goyard Duffle Bag",
+      price: 3500,
+      images: ["blue-bag.png", "green-bag.png"],
+      colors: ["Blue", "Green"]
+    },
+    {
+      name: "Goyard Backpack",
+      price: 3000,
+      images: ["GB1.png", "GB2.png", "GB3.png"],
+      colors: ["Burgundy", "Black", "Green"]
+    },
+    {
+      name: "Mini Coach Bag",
+      price: 125,
+      images: ["MC1.png", "MC2.png", "MC3.png"],
+      colors: ["Beige", "Black Gold", "Black Subtle"]
+    },
+    {
+      name: "Louis Vuitton Messenger Bag",
+      price: 700,
+      images: ["LVMB1.png"],
+      colors: []
+    },
+    {
+      name: "Prada Crochet Tote Bag",
+      price: 1600,
+      images: ["PCTB1.png"],
+      colors: []
+    },
+    {
+      name: "Chanel Medium Denim Deauville Tote",
+      price: 2400,
+      images: ["CMDDT1.png"],
+      colors: []
+    }
+  ];
+
+  let imageIndexes = Array(products.length).fill(0);
+
+  function rotateImage(id, idx) {
+    imageIndexes[idx] = (imageIndexes[idx] + 1) % products[idx].images.length;
+    document.getElementById(id).src = `https://surfz-backend.onrender.com/images/${products[idx].images[imageIndexes[idx]]}`;
+  }
+
+  function addToCart(name, price, colorId, imageName) {
+    const colorSelect = document.getElementById(colorId);
+    let color = "Standard";
+    if (colorSelect) {
+      color = colorSelect.value;
+      if (!color) return alert("Please select a color!");
+    }
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    cart.push({ name, price, size: color, image: imageName });
+    localStorage.setItem("cart", JSON.stringify(cart));
+    alert("Added to cart!");
+    updateCartCount();
+  }
+
+  function updateCartCount() {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    document.getElementById("cart-count").textContent = cart.length;
+  }
+
+  function createProductHTML(product, index) {
+    const hasColors = product.colors.length > 0;
+    const options = product.colors.map(c => `<option value="${c}">${c}</option>`).join("");
+    const imageURL = `https://surfz-backend.onrender.com/images/${product.images[0]}`;
+    return `
+      <div class="product">
+        <img id="shoeImg${index}" src="${imageURL}" onclick="rotateImage('shoeImg${index}', ${index})" alt="${product.name}">
+        <h2>${product.name}</h2>
+        <p>$${product.price}</p>
+        ${hasColors ? `
+        <select id="color${index}">
+          <option value="">Select Color</option>
+          ${options}
+        </select>` : ''}
+        <div class="buy-button">
+          <button onclick="addToCart('${product.name}', ${product.price}, 'color${index}', '${product.images[0]}')">Add to Cart</button>
+        </div>
+      </div>
+    `;
+  }
+
+  document.getElementById("product-grid").innerHTML = products.map(createProductHTML).join("");
+  updateCartCount();
+</script>
+
+</body>
+</html>

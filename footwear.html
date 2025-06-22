@@ -1,0 +1,180 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Footwear | SURFZ RESELLS</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      font-family: 'Arial Black', sans-serif;
+    }
+    nav {
+      background: #000;
+      padding: 1rem;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 0.5rem 1rem;
+      border-radius: 10px;
+      transition: 0.3s;
+    }
+    nav a:hover {
+      background: white;
+      color: black;
+    }
+    h1 {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 2.5rem;
+    }
+    .grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 2rem;
+      gap: 2rem;
+    }
+    .product {
+      width: 300px;
+      border: 2px solid #ccc;
+      padding: 1rem;
+      border-radius: 10px;
+      text-align: center;
+      background: #f9f9f9;
+    }
+    .product img {
+      width: 100%;
+      height: 300px;
+      object-fit: contain;
+      border-radius: 10px;
+      cursor: pointer;
+      background: white;
+    }
+    .product select {
+      width: 100%;
+      padding: 8px;
+      margin-top: 0.5rem;
+      font-weight: bold;
+    }
+    .buy-button button {
+      margin-top: 1rem;
+      background: #00ffcc;
+      color: black;
+      padding: 10px 20px;
+      font-weight: bold;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .footer {
+      margin-top: 3rem;
+      text-align: center;
+      background: #000;
+      color: #fff;
+      padding: 1rem;
+    }
+    .cart-icon {
+      position: fixed;
+      top: 15px;
+      right: 20px;
+      background-color: #00ffcc;
+      color: black;
+      padding: 10px 18px;
+      border-radius: 30px;
+      font-weight: bold;
+      text-decoration: none;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+      z-index: 999;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="footwear.html">Footwear</a>
+    <a href="clothing.html">Clothing</a>
+    <a href="shorts.html">Shorts</a>
+    <a href="bags.html">Bags</a>
+    <a href="headphones.html">Headphones</a>
+    <a href="accessories.html">Accessories</a>
+  </nav>
+
+  <a href="cart.html" class="cart-icon">🛒 Cart (<span id="cart-count">0</span>)</a>
+
+  <h1>Our Kicks</h1>
+  <div class="grid" id="product-grid"></div>
+
+  <div class="footer">
+    <p>&copy; 2025 SURFZ RESELLS | All Rights Reserved</p>
+  </div>
+
+  
+  <script>
+    const products = [{"name": "AF1 CPFM Fuchsia Dream", "price": 575, "images": ["cpfm_fuchsia_1.png", "cpfm_fuchsia_2.png"], "sizes": [5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10, 10.5, 11, 11.5, 12, 12.5, 13, 13.5, 14]}, {"name": "Jordan 5 Metallic", "price": 275, "images": ["jordan5_front.png", "jordan5_back.png"], "sizes": [5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10, 10.5, 11, 11.5, 12, 12.5, 13, 13.5, 14]}, {"name": "Balenciaga Runner", "price": 800, "images": ["balenciaga_runner.png", "balenciaga_runner2.png"], "sizes": ["EU 39", "EU 40", "EU 41", "EU 42", "EU 43", "EU 44", "EU 45", "EU 46", "EU 47"]}, {"name": "AF1 CPFM White", "price": 550, "images": ["cpfm_white_1.png", "cpfm_white_2.png"], "sizes": [5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10, 10.5, 11, 11.5, 12, 12.5, 13, 13.5, 14]}, {"name": "Rick Owens Porterville", "price": 650, "images": ["rickowens_1.png", "rickowens_2.png"], "sizes": ["EU 39", "EU 40", "EU 41", "EU 42", "EU 43", "EU 44", "EU 45", "EU 46", "EU 47"]}, {"name": "Zoom Kobe 6 Protro \'Dodgers\'", "price": 285, "images": ["ZK61.png", "ZK62.png", "ZK63.png"], "sizes": [5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10, 10.5, 11, 11.5, 12, 12.5, 13, 13.5, 14]}, {"name": "Bottega Veneta Orbit", "price": 950, "images": ["BVO1.png", "BVO2.png", "BVO3.png"], "sizes": ["EU 39", "EU 40", "EU 41", "EU 42", "EU 43", "EU 44", "EU 45", "EU 46", "EU 47"]}, {"name": "Lil Yachty x Air Force 1 \'Concrete Boys - Lucky Green\'", "price": 650, "images": ["LYXAF1.png", "LYXAF2.png", "LYXAF3.png"], "sizes": [5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10, 10.5, 11, 11.5, 12, 12.5, 13, 13.5, 14]}, {"name": "Union LA x Air Jordan 4 Retro \'Off Noir\'", "price": 385, "images": ["UNION1.png", "UNION2.png", "UNION3.png"], "sizes": [5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10, 10.5, 11, 11.5, 12, 12.5, 13, 13.5, 14]}, {"name": "Powerpuff Girls Blossom Nike SB Dunks", "price": 525, "images": ["PGB1.png", "PGB2.png", "PBG3.png", "PBG4.png"], "sizes": [5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10, 10.5, 11, 11.5, 12, 12.5, 13, 13.5, 14]}, {"name": "Travis Scott x AJ1 Low OG \'Black Phantom\'", "price": 585, "images": ["TSAJ1.png", "TSAJ2.png", "TSAJ3.png"], "sizes": [5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10, 10.5, 11, 11.5, 12, 12.5, 13, 13.5, 14]}, {"name": "Jordan 14 Retro \'Ferrari\'", "price": 245, "images": ["J141.png", "J142.png", "J143.png"], "sizes": [5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10, 10.5, 11, 11.5, 12, 12.5, 13, 13.5, 14]}, {"name": "Rick Owens Vintage Low Brown", "price": 590, "images": ["ROVLB1.png", "ROVLB2.png"], "sizes": ["EU 39", "EU 40", "EU 41", "EU 42", "EU 43", "EU 44", "EU 45", "EU 46", "EU 47"]}, {"name": "Supreme x Dunk Low SB \'Rammellzee\'", "price": 275, "images": ["SXDL1.png", "SXDL2.png", "SXDL3.png"], "sizes": [5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10, 10.5, 11, 11.5, 12, 12.5, 13, 13.5, 14]}, {"name": "Marni Slippers (Multiple Colors)", "price": 500, "images": ["pinkmarni.png", "orangemarni.png"], "sizes": ["EU 39", "EU 40", "EU 41", "EU 42", "EU 43", "EU 44", "EU 45", "EU 46", "EU 47"]}, {"name": "Rick Owens DRKSHDW Luxor Low \u2018Black Pearl\u2019", "price": 650, "images": ["DRKSHDW1.png", "DRKSHDW2.png", "DRKSHDW3.png"], "sizes": ["EU 39", "EU 40", "EU 41", "EU 42", "EU 43", "EU 44", "EU 45", "EU 46", "EU 47"]}, {"name": "Off White Slides", "price": 195, "images": ["OFFW1.png", "OFFW2.png"], "sizes": ["EU 39", "EU 40", "EU 41", "EU 42", "EU 43", "EU 44", "EU 45", "EU 46", "EU 47"]}, {"name": "Rick Owen\u2019s Vintage Suede Trimmed Leather", "price": 600, "images": ["leathersneakers1.png", "leathersneakers2.png", "leathersneakers3.png"], "sizes": ["EU 39", "EU 40", "EU 41", "EU 42", "EU 43", "EU 44", "EU 45", "EU 46", "EU 47"]}, {"name": "Balenciaga Black Furry Slides", "price": 550, "images": ["BBFS1.png"], "sizes": ["EU 39", "EU 40", "EU 41", "EU 42", "EU 43", "EU 44", "EU 45", "EU 46", "EU 47"]}, {"name": "Ben & Jerry\u2019s x Dunk Low SB \u2018Chunky Dunky\u2019", "price": 950, "images": ["B&J1.png", "B&J2.png", "B&J3.png"], "sizes": [5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10, 10.5, 11, 11.5, 12, 12.5, 13, 13.5, 14]}];
+
+    let imageIndexes = Array(products.length).fill(0);
+
+    function rotateImage(id, idx) {
+      imageIndexes[idx] = (imageIndexes[idx] + 1) % products[idx].images.length;
+      document.getElementById(id).src = products[idx].images[imageIndexes[idx]];
+    }
+
+    function addToCart(name, price, sizeId) {
+      const size = document.getElementById(sizeId).value;
+      if (!size) return alert("Please select a size!");
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      cart.push({ name, price, size, image: products.find(p => p.name === name).images[0] });
+      localStorage.setItem("cart", JSON.stringify(cart));
+      alert("Added to cart!");
+      updateCartCount();
+    }
+
+    function updateCartCount() {
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      document.getElementById("cart-count").textContent = cart.length;
+    }
+
+    function createProductHTML(product, index) {
+      const options = product.sizes.map(size => `<option value="${size}">${size}</option>`).join("");
+      return `
+        <div class="product">
+          <img id="shoeImg${index}" src="${product.images[0]}" alt="${product.name}" />
+          <h2>${product.name}</h2>
+          <p>$${product.price}</p>
+          <select id="size${index}">
+            <option value="">Select Size</option>
+            ${options}
+          </select>
+          <div class="buy-button">
+            <button id="addBtn${index}">Add to Cart</button>
+          </div>
+        </div>
+      `;
+    }
+
+    document.getElementById("product-grid").innerHTML = products.map(createProductHTML).join("");
+
+    products.forEach((product, index) => {
+      document.getElementById(`addBtn${index}`).addEventListener("click", () => {
+        addToCart(product.name, product.price, `size${index}`);
+      });
+      document.getElementById(`shoeImg${index}`).addEventListener("click", () => {
+        rotateImage(`shoeImg${index}`, index);
+      });
+    });
+
+    updateCartCount();
+  </script>
+
+</body>
+</html>

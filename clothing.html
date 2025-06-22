@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Clothing | SURFZ RESELLS</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #fff;
+      color: #000;
+      font-family: 'Arial Black', sans-serif;
+    }
+    nav {
+      background-color: #000;
+      padding: 1rem 0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5rem;
+    }
+    nav a {
+      text-decoration: none;
+      color: #fff;
+      font-weight: bold;
+      padding: 10px 20px;
+      border-radius: 10px;
+      transition: 0.3s;
+    }
+    nav a:hover {
+      background-color: #fff;
+      color: #000;
+    }
+    h1 {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 2.5rem;
+    }
+    .grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+      padding: 2rem;
+    }
+    .product {
+      width: 300px;
+      text-align: center;
+      border: 2px solid #ccc;
+      padding: 1rem;
+      border-radius: 12px;
+      background: #f9f9f9;
+    }
+    .product img {
+      width: 100%;
+      height: 300px;
+      object-fit: contain;
+      border-radius: 10px;
+      background: white;
+      cursor: pointer;
+    }
+    .product h2 {
+      font-size: 1.2rem;
+      margin-top: 1rem;
+    }
+    select {
+      margin-top: 0.5rem;
+      padding: 8px;
+      width: 100%;
+      font-weight: bold;
+    }
+    .buy-button {
+      margin-top: 1rem;
+    }
+    .buy-button button {
+      padding: 10px 20px;
+      font-weight: bold;
+      border: none;
+      border-radius: 6px;
+      background-color: #00ffcc;
+      color: black;
+      cursor: pointer;
+    }
+    .footer {
+      margin-top: 4rem;
+      background: #111;
+      color: #fff;
+      padding: 2rem;
+      text-align: center;
+    }
+    .cart-icon {
+      position: fixed;
+      top: 15px;
+      right: 20px;
+      background-color: #00ffcc;
+      color: black;
+      padding: 10px 18px;
+      border-radius: 30px;
+      font-weight: bold;
+      text-decoration: none;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+      z-index: 999;
+    }
+    .cart-icon:hover {
+      background-color: #00ddb3;
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html">Home</a>
+  <a href="footwear.html">Footwear</a>
+  <a href="clothing.html">Clothing</a>
+  <a href="shorts.html">Shorts</a>
+  <a href="bags.html">Bags</a>
+  <a href="headphones.html">Headphones</a>
+  <a href="accessories.html">Accessories</a>
+</nav>
+<a href="cart.html" class="cart-icon">🛒 Cart (<span id="cart-count">0</span>)</a>
+<h1>Our Clothing</h1>
+<div class="grid">
+
+  <div class="product">
+    <img src="CHMBSWLS1.png" alt="" />
+    <h2>Chrome Hearts Spider Web Long Sleeve</h2>
+    <p>$450</p>
+    <select id="size0">
+      <option value="">Select Size</option>
+      <option>S</option><option>M</option><option>L</option><option>XL</option>
+    </select>
+    <div class="buy-button">
+      <button onclick="addToCart('Chrome Hearts Spider Web Long Sleeve', 450, 'size0')">Add to Cart</button>
+    </div>
+  </div>
+
+  <div class="product">
+    <img src="CHMIHPCLS1.png" alt="" />
+    <h2>Chrome Hearts Made In Hollywood LS</h2>
+    <p>$400</p>
+    <select id="size1">
+      <option value="">Select Size</option>
+      <option>S</option><option>M</option><option>L</option><option>XL</option>
+    </select>
+    <div class="buy-button">
+      <button onclick="addToCart('Chrome Hearts Made In Hollywood LS', 400, 'size1')">Add to Cart</button>
+    </div>
+  </div>
+
+  <div class="product">
+    <img src="BMCNYC1.png" alt="" />
+    <h2>BAPE Multi Camo NYC Shark Zip Hoodie (Black)</h2>
+    <p>$600</p>
+    <select id="size2">
+      <option value="">Select Size</option>
+      <option>S</option><option>M</option><option>L</option><option>XL</option>
+    </select>
+    <div class="buy-button">
+      <button onclick="addToCart('BAPE Multi Camo NYC Shark Zip Hoodie (Black)', 600, 'size2')">Add to Cart</button>
+    </div>
+  </div>
+
+  <div class="product">
+    <img src="Pink1.png" alt="" />
+    <h2>BAPE ABC Camo Shark Zip Hoodie (Pink)</h2>
+    <p>$275</p>
+    <select id="size3">
+      <option value="">Select Size</option>
+      <option>S</option><option>M</option><option>L</option><option>XL</option>
+    </select>
+    <div class="buy-button">
+      <button onclick="addToCart('BAPE ABC Camo Shark Zip Hoodie (Pink)', 275, 'size3')">Add to Cart</button>
+    </div>
+  </div>
+
+  <div class="product">
+    <img src="Blue1.png" alt="" />
+    <h2>BAPE ABC Camo Shark Zip Hoodie (Blue)</h2>
+    <p>$275</p>
+    <select id="size4">
+      <option value="">Select Size</option>
+      <option>S</option><option>M</option><option>L</option><option>XL</option>
+    </select>
+    <div class="buy-button">
+      <button onclick="addToCart('BAPE ABC Camo Shark Zip Hoodie (Blue)', 275, 'size4')">Add to Cart</button>
+    </div>
+  </div>
+
+  <div class="product">
+    <img src="Red1.png" alt="" />
+    <h2>BAPE Color Camo Shark Zip Hoodie (Red)</h2>
+    <p>$300</p>
+    <select id="size5">
+      <option value="">Select Size</option>
+      <option>S</option><option>M</option><option>L</option><option>XL</option>
+    </select>
+    <div class="buy-button">
+      <button onclick="addToCart('BAPE Color Camo Shark Zip Hoodie (Red)', 300, 'size5')">Add to Cart</button>
+    </div>
+  </div>
+
+  <div class="product">
+    <img src="Purple1.png" alt="" />
+    <h2>BAPE Color Camo Shark Zip Hoodie (Purple)</h2>
+    <p>$260</p>
+    <select id="size6">
+      <option value="">Select Size</option>
+      <option>S</option><option>M</option><option>L</option><option>XL</option>
+    </select>
+    <div class="buy-button">
+      <button onclick="addToCart('BAPE Color Camo Shark Zip Hoodie (Purple)', 260, 'size6')">Add to Cart</button>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <p>&copy; 2025 SURFZ RESELLS | All Rights Reserved</p>
+</div>
+
+<script>
+  function addToCart(name, price, sizeId) {
+    const size = document.getElementById(sizeId).value;
+    if (!size) return alert("Please select a size!");
+
+    const productElement = document.getElementById(sizeId).closest(".product");
+    const image = productElement.querySelector("img").getAttribute("src");
+
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    cart.push({ name, price, size, image });
+    localStorage.setItem("cart", JSON.stringify(cart));
+    alert("Added to cart!");
+    updateCartCount();
+  }
+
+  function updateCartCount() {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    document.getElementById("cart-count").textContent = cart.length;
+  }
+
+  updateCartCount();
+</script>
+
+</body>
+</html>
