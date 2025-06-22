@@ -173,7 +173,7 @@
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
 
     const cleanCart = cart.map((item) => {
-      const cleanedName = item.name.replace(/\s*\([^)]*\)/g, '').trim();
+      const cleanedName = item.name.replace(/\((\s*\d+(\.\d+)?|EU \d+)\)/g, '').trim();
       return {
         ...item,
         name: cleanedName
