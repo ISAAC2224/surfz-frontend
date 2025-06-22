@@ -172,6 +172,8 @@
   function checkout() {
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
 
+    console.log("📦 Sending cart to backend:", cart);
+
     fetch("https://surfz-backend.onrender.com/create-checkout-session", {
       method: "POST",
       headers: {
@@ -184,11 +186,12 @@
       if (data.url) {
         window.location.href = data.url;
       } else {
+        console.warn("⚠️ Stripe session not started:", data);
         alert("Stripe session failed to start.");
       }
     })
     .catch((err) => {
-      console.error("Checkout error:", err);
+      console.error("❌ Checkout error:", err);
       alert("Error creating checkout session.");
     });
   }
