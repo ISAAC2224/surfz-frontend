@@ -147,12 +147,7 @@
       total += item.price;
 
       const imageCell = `<img src="https://surfz-backend.onrender.com/images/${item.image}" alt="${item.name}">`;
-
-      // Check for known product categories that use color instead of size
-      const lowerName = item.name.toLowerCase();
-      const isColor = lowerName.includes("bag") || lowerName.includes("backpack") || lowerName.includes("tote") || lowerName.includes("hat");
-
-      const detailLabel = isColor ? "Color" : "Size";
+      const detailLabel = item.name.toLowerCase().includes("bag") ? "Color" : "Size";
       const detailCell = `<strong>${item.name}</strong><br>${detailLabel}: ${item.size}`;
 
       tr.innerHTML = `
@@ -177,21 +172,26 @@
   function checkout() {
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-    console.log("📦 Sending cart to backend:", cart);
+    const cleanCart = cart.map((item) => {
+      const cleanedName = item.name.replace(/\s*\([^)]*\)/g, '').trim();
+      return {
+        ...item,
+        name: cleanedName
+      };
+    });
 
     fetch("https://surfz-backend.onrender.com/create-checkout-session", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({ items: cart })
+      body: JSON.stringify({ items: cleanCart })
     })
     .then((res) => res.json())
     .then((data) => {
       if (data.url) {
         window.location.href = data.url;
       } else {
-        console.warn("⚠️ Stripe session not started:", data);
         alert("Stripe session failed to start.");
       }
     })
