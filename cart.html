@@ -143,8 +143,7 @@
 
       const tr = document.createElement("tr");
       const imageCell = `<img src="https://surfz-backend.onrender.com/images/${image}" alt="${name}">`;
-      const detailLabel = name.toLowerCase().includes("bag") ? "Color" : "Size";
-      const detailCell = `<strong>${name}</strong><br>${detailLabel}: ${size}`;
+      const detailCell = `<strong>${item.name}</strong>`;
 
       tr.innerHTML = `
         <td>${imageCell}</td>
