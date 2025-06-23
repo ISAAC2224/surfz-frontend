@@ -133,7 +133,7 @@
     cart.forEach((item, index) => {
   let sizeLine = "";
   if (item.size && item.size !== "N/A" && item.size !== "undefined") {
-    sizeLine = `<br><strong>Size:</strong> ${item.size}`;
+    sizeLine = "";
   }
       const price = item.price || 0;
       const image = item.image || "placeholder.png";
