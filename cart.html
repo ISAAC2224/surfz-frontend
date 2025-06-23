@@ -136,10 +136,6 @@
 </div>
 
 <script>
-  function normalizeName(name) {
-    return name.replace(/[’‘]/g, "'").replace(/[“”]/g, '"').replace(/\s+/g, ' ').trim();
-  }
-
   function loadCart() {
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
     const tbody = document.getElementById("cart-items");
@@ -150,7 +146,7 @@
       const tr = document.createElement("tr");
       total += item.price;
 
-      const imageCell = `<img src="images/${item.image}" alt="${item.name}">`;
+      const imageCell = `<img src="https://surfz-backend.onrender.com/images/${item.image}" alt="${item.name}">`;
       const detailCell = `<strong>${item.name}</strong>`;
 
       tr.innerHTML = `
@@ -173,21 +169,27 @@
   }
 
   function checkout() {
-    const rawCart = JSON.parse(localStorage.getItem("cart")) || [];
-    const cart = rawCart.map(item => ({
-      name: normalizeName(item.name.replace(/\s*\(Size:.*\)/, '')),
-      price: item.price,
-      image: item.image
-    }));
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-    console.log("📦 Sending cart to backend:", cart);
+    // Normalize product names before sending to backend
+    const normalizedCart = cart.map((item) => {
+      const cleanName = item.name
+        .replace(/[‘’]/g, "'")
+        .replace(/[“”]/g, '"')
+        .replace(/[\u2013\u2014]/g, "-")
+        .replace(/\(Size:.*?\)/g, "")
+        .trim();
+      return { ...item, name: cleanName };
+    });
+
+    console.log("📦 Sending cart to backend:", normalizedCart);
 
     fetch("https://surfz-backend.onrender.com/create-checkout-session", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({ items: cart })
+      body: JSON.stringify({ items: normalizedCart })
     })
     .then((res) => res.json())
     .then((data) => {
