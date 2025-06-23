@@ -136,21 +136,25 @@
 </div>
 
 <script>
-  function normalizeName(name) {
-    return name
+  function normalizeQuotes(str) {
+    return str
       .replace(/[‘’]/g, "'")
       .replace(/[“”]/g, '"')
+      .replace(/’/g, "'")
       .replace(/\s+/g, ' ')
       .trim();
   }
 
   function loadCart() {
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const cleanedCart = cart.filter(item => item && item.name && item.price && item.image);
+    localStorage.setItem("cart", JSON.stringify(cleanedCart));
+
     const tbody = document.getElementById("cart-items");
     let total = 0;
     tbody.innerHTML = "";
 
-    cart.forEach((item, index) => {
+    cleanedCart.forEach((item, index) => {
       const tr = document.createElement("tr");
       total += item.price;
 
@@ -177,24 +181,28 @@
   }
 
   function checkout() {
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-    const cleanedCart = cart.map(item => ({
-      name: normalizeName(item.name),
-      price: item.price
-    }));
+    cart = cart.map(item => {
+      if (!item || !item.name || !item.price || !item.image) return null;
+      const name = normalizeQuotes(item.name);
+      return { name, price: item.price, image: item.image };
+    }).filter(item => item !== null);
 
-    console.log("📦 Sending cart to backend:", cleanedCart);
+    if (cart.length === 0) {
+      alert("Your cart is empty or contains invalid items.");
+      return;
+    }
+
+    console.log("📦 Sending cleaned cart to backend:", cart);
 
     fetch("https://surfz-backend.onrender.com/create-checkout-session", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ items: cleanedCart })
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ items: cart })
     })
-    .then((res) => res.json())
-    .then((data) => {
+    .then(res => res.json())
+    .then(data => {
       if (data.url) {
         window.location.href = data.url;
       } else {
@@ -202,7 +210,7 @@
         alert("Stripe session failed to start.");
       }
     })
-    .catch((err) => {
+    .catch(err => {
       console.error("❌ Checkout error:", err);
       alert("Error creating checkout session.");
     });
