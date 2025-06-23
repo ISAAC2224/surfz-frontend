@@ -138,28 +138,28 @@
 <script>
   function loadCart() {
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    console.log("🛒 Loaded cart:", cart);
     const tbody = document.getElementById("cart-items");
     let total = 0;
-    tbody.innerHTML = "";
+    const rows = [];
 
-    cart.forEach((item, index) => {
-      const tr = document.createElement("tr");
+    for (let i = 0; i < cart.length; i++) {
+      const item = cart[i];
       total += item.price;
-
-      const imageCell = `<img src="https://surfz-backend.onrender.com/images/${item.image}" alt="${item.name}">`;
       const detailLabel = item.name.toLowerCase().includes("bag") ? "Color" : "Size";
-      const detailCell = `<strong>${item.name}</strong><br>${detailLabel}: ${item.size}`;
 
-      tr.innerHTML = `
-        <td>${imageCell}</td>
-        <td>${detailCell}</td>
-        <td>$${item.price}</td>
-        <td><button class="remove-btn" onclick="removeItem(${index})">Remove</button></td>
-      `;
-      tbody.appendChild(tr);
-    });
+      rows.push(\`
+        <tr>
+          <td><img src="https://surfz-backend.onrender.com/images/\${item.image}" alt="\${item.name}"></td>
+          <td><strong>\${item.name}</strong><br>\${detailLabel}: \${item.size}</td>
+          <td>$\${item.price}</td>
+          <td><button class="remove-btn" onclick="removeItem(\${i})">Remove</button></td>
+        </tr>
+      \`);
+    }
 
-    document.getElementById("cart-total").textContent = `Total: $${total}`;
+    tbody.innerHTML = rows.join("");
+    document.getElementById("cart-total").textContent = \`Total: $\${total}\`;
   }
 
   function removeItem(index) {
@@ -172,7 +172,12 @@
   function checkout() {
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-    console.log("📦 Sending cart to backend:", cart);
+    const normalizedCart = cart.map(item => {
+      const cleanName = item.name
+        .replace(/\s*\(Size:.*?\)/gi, "")
+        .trim();
+      return { ...item, name: cleanName };
+    });
 
     fetch("https://surfz-backend.onrender.com/create-checkout-session", {
       method: "POST",
@@ -186,17 +191,15 @@
       if (data.url) {
         window.location.href = data.url;
       } else {
-        console.warn("⚠️ Stripe session not started:", data);
-        alert("Stripe session failed to start.");
+        alert("Stripe session failed.");
       }
     })
     .catch((err) => {
-      console.error("❌ Checkout error:", err);
       alert("Error creating checkout session.");
     });
   }
 
-  loadCart();
+  document.addEventListener("DOMContentLoaded", loadCart);
 </script>
 
 </body>
