@@ -131,6 +131,10 @@
     tbody.innerHTML = "";
 
     cart.forEach((item, index) => {
+  let sizeLine = "";
+  if (item.size && item.size !== "N/A" && item.size !== "undefined") {
+    sizeLine = `<br><strong>Size:</strong> ${item.size}`;
+  }
       const price = item.price || 0;
       const image = item.image || "placeholder.png";
       const name = item.name || "Unknown Product";
