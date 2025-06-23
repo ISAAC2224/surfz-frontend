@@ -6,16 +6,16 @@
   <title>Cart | SURFZ RESELLS</title>
   <style>
     body {
+      font-family: 'Arial Black', sans-serif;
       margin: 0;
       padding: 0;
-      font-family: 'Arial Black', sans-serif;
       background-color: #fff;
       color: #000;
     }
 
     nav {
       background-color: #000;
-      padding: 1rem 0;
+      padding: 1rem;
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
@@ -39,14 +39,12 @@
     h1 {
       text-align: center;
       margin: 2rem 0;
-      font-size: 2.5rem;
     }
 
     table {
       width: 90%;
       margin: auto;
       border-collapse: collapse;
-      margin-bottom: 2rem;
     }
 
     th, td {
@@ -65,7 +63,7 @@
     img {
       width: 60px;
       height: auto;
-      loading: lazy;
+      display: block;
     }
 
     .remove-btn {
@@ -81,27 +79,29 @@
       text-align: right;
       font-weight: bold;
       font-size: 1.2rem;
-      padding: 1rem 5%;
+      margin-right: 5%;
+      margin-top: 1rem;
     }
 
     .checkout-btn {
       display: block;
-      margin: 1rem auto;
+      margin: 2rem auto;
       padding: 10px 30px;
+      background-color: #00ffcc;
+      color: black;
       font-weight: bold;
       font-size: 1rem;
       border: none;
       border-radius: 6px;
-      background-color: #00ffcc;
-      color: black;
       cursor: pointer;
     }
 
     .footer {
       background: #111;
       color: #fff;
-      padding: 2rem;
       text-align: center;
+      padding: 1.5rem;
+      margin-top: 2rem;
     }
   </style>
 </head>
@@ -121,8 +121,8 @@
 <table>
   <thead>
     <tr>
-      <th>Product</th>
-      <th>Details</th>
+      <th>Image</th>
+      <th>Name & Size</th>
       <th>Price</th>
       <th>Remove</th>
     </tr>
@@ -141,24 +141,25 @@
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
     const tbody = document.getElementById("cart-items");
     let total = 0;
-    const rows = [];
+    let rows = "";
 
     for (let i = 0; i < cart.length; i++) {
       const item = cart[i];
       total += item.price;
 
-      rows.push(\`
+      rows += \`
         <tr>
-          <td><img src="https://surfz-backend.onrender.com/images/\${item.image}" alt="\${item.name}" loading="lazy" /></td>
+          <td><img src="https://surfz-backend.onrender.com/images/\${item.image}" alt="\${item.name}" /></td>
           <td><strong>\${item.name}</strong><br>Size: \${item.size}</td>
           <td>$\${item.price}</td>
           <td><button class="remove-btn" onclick="removeItem(\${i})">Remove</button></td>
         </tr>
-      \`);
+      \`;
     }
 
-    tbody.innerHTML = rows.join("");
-    document.getElementById("cart-total").textContent = `Total: $${total}`;
+    tbody.innerHTML = rows;
+    document.getElementById("cart-total").textContent = "Total: $" + total;
+    console.log("🛒 Loaded cart:", cart);
   }
 
   function removeItem(index) {
@@ -171,7 +172,7 @@
   function checkout() {
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-    const normalizedCart = cart.map((item) => {
+    const normalizedCart = cart.map(item => {
       const cleanName = item.name
         .replace(/[‘’]/g, "'")
         .replace(/[“”]/g, '"')
@@ -193,12 +194,10 @@
       if (data.url) {
         window.location.href = data.url;
       } else {
-        alert("Stripe session failed to start.");
+        alert("Stripe session failed.");
       }
     })
-    .catch((err) => {
-      alert("Error creating checkout session.");
-    });
+    .catch(() => alert("Error starting checkout."));
   }
 
   document.addEventListener("DOMContentLoaded", loadCart);
