@@ -138,28 +138,28 @@
 <script>
   function loadCart() {
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
-    console.log("🛒 Loaded cart:", cart);
     const tbody = document.getElementById("cart-items");
     let total = 0;
-    const rows = [];
+    tbody.innerHTML = "";
 
-    for (let i = 0; i < cart.length; i++) {
-      const item = cart[i];
+    cart.forEach((item, index) => {
+      const tr = document.createElement("tr");
       total += item.price;
+
+      const imageCell = `<img src="https://surfz-backend.onrender.com/images/${item.image}" alt="${item.name}">`;
       const detailLabel = item.name.toLowerCase().includes("bag") ? "Color" : "Size";
+      const detailCell = `<strong>${item.name}</strong><br>${detailLabel}: ${item.size}`;
 
-      rows.push(\`
-        <tr>
-          <td><img src="https://surfz-backend.onrender.com/images/\${item.image}" alt="\${item.name}"></td>
-          <td><strong>\${item.name}</strong><br>\${detailLabel}: \${item.size}</td>
-          <td>$\${item.price}</td>
-          <td><button class="remove-btn" onclick="removeItem(\${i})">Remove</button></td>
-        </tr>
-      \`);
-    }
+      tr.innerHTML = `
+        <td>${imageCell}</td>
+        <td>${detailCell}</td>
+        <td>$${item.price}</td>
+        <td><button class="remove-btn" onclick="removeItem(${index})">Remove</button></td>
+      `;
+      tbody.appendChild(tr);
+    });
 
-    tbody.innerHTML = rows.join("");
-    document.getElementById("cart-total").textContent = \`Total: $\${total}\`;
+    document.getElementById("cart-total").textContent = `Total: $${total}`;
   }
 
   function removeItem(index) {
@@ -171,6 +171,8 @@
 
   function checkout() {
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    console.log("📦 Sending cart to backend:", cart);
 
     fetch("https://surfz-backend.onrender.com/create-checkout-session", {
       method: "POST",
@@ -184,15 +186,17 @@
       if (data.url) {
         window.location.href = data.url;
       } else {
-        alert("Stripe session failed.");
+        console.warn("⚠️ Stripe session not started:", data);
+        alert("Stripe session failed to start.");
       }
     })
     .catch((err) => {
+      console.error("❌ Checkout error:", err);
       alert("Error creating checkout session.");
     });
   }
 
-  document.addEventListener("DOMContentLoaded", loadCart);
+  loadCart();
 </script>
 
 </body>
