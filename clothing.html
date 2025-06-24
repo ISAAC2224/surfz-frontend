@@ -122,8 +122,6 @@
 <h1>Our Clothing</h1>
 <div class="grid">
 
-<!-- All product cards restored -->
-
   <div class="product">
     <img src="CHMBSWLS1.png" alt="" />
     <h2>Chrome Hearts Spider Web Long Sleeve</h2>
@@ -229,9 +227,8 @@
     const productElement = document.getElementById(sizeId).closest(".product");
     const image = productElement.querySelector("img").getAttribute("src");
 
-    const fullName = `${name} (Size: ${size})`;
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
-    cart.push({ name: fullName, price, image });
+    cart.push({ name, price, size, image });
     localStorage.setItem("cart", JSON.stringify(cart));
     alert("Added to cart!");
     updateCartCount();
