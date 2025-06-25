@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -105,16 +104,14 @@
 <body>
 
   <nav>
-  <a href="index.html">Home</a>
-  <a href="footwear.html">Footwear</a>
-  <a href="clothing.html">Clothing</a>
-  <a href="shorts.html">Shorts</a>
-  <a href="bags.html">Bags</a>
-  <a href="headphones.html">Headphones</a>
-  <a href="accessories.html">Accessories</a>
-</nav>
-
-
+    <a href="index.html">Home</a>
+    <a href="footwear.html">Footwear</a>
+    <a href="clothing.html">Clothing</a>
+    <a href="shorts.html">Shorts</a>
+    <a href="bags.html">Bags</a>
+    <a href="headphones.html">Headphones</a>
+    <a href="accessories.html">Accessories</a>
+  </nav>
 
   <a href="cart.html" class="cart-icon">🛒 Cart (<span id="cart-count">0</span>)</a>
 
@@ -142,9 +139,9 @@
       document.getElementById(id).src = products[idx].images[imageIndexes[idx]];
     }
 
-    function addToCart(name, price) {
+    function addToCart(name, price, image) {
       const cart = JSON.parse(localStorage.getItem("cart")) || [];
-      cart.push({ name, price });
+      cart.push({ name, price, image, size: "N/A" });
       localStorage.setItem("cart", JSON.stringify(cart));
       alert("Added to cart!");
       updateCartCount();
@@ -162,7 +159,7 @@
           <h2>${product.name}</h2>
           <p>$${product.price}</p>
           <div class="buy-button">
-            <button onclick="addToCart('${product.name}', ${product.price})">Add to Cart</button>
+            <button onclick="addToCart('${product.name}', ${product.price}, '${product.images[0]}')">Add to Cart</button>
           </div>
         </div>
       `;
