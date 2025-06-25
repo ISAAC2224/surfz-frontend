@@ -170,9 +170,6 @@
   <a href="accessories.html">Accessories</a>
 </nav>
 
-
-
-
   <a href="cart.html" class="cart-icon">🛒 Cart (<span id="cart-count">0</span>)</a>
 
   <h1>AirPods Max</h1>
@@ -186,7 +183,7 @@
       <h2>$400</h2>
       <p>Premium sound. Seamless style. Real resale energy.</p>
       <div class="buy-button">
-        <button onclick="addToCart('AirPods Max', 400)">Add to Cart</button>
+        <button onclick="addToCart('AirPods Max', 400, 'airpods.png')">Add to Cart</button>
       </div>
     </div>
   </div>
@@ -220,9 +217,9 @@
   </footer>
 
   <script>
-    function addToCart(name, price) {
+    function addToCart(name, price, image) {
       const cart = JSON.parse(localStorage.getItem("cart")) || [];
-      cart.push({ name, price, size: 'N/A' });
+      cart.push({ name, price, image, size: 'N/A' });
       localStorage.setItem("cart", JSON.stringify(cart));
       alert("Added to cart!");
       updateCartCount();
