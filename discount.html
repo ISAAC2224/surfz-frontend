@@ -1,93 +1,205 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SURFZ Discount | SURFZ RESELLS</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Discounts | SURFZ RESELLS</title>
   <style>
     body {
-      background-color: #000;
-      color: #fff;
-      font-family: 'Arial Black', sans-serif;
       margin: 0;
       padding: 0;
+      background: #fff;
+      font-family: 'Arial Black', sans-serif;
     }
+
     nav {
-      background-color: #111;
+      background: #000;
+      padding: 1rem;
       display: flex;
       justify-content: center;
-      padding: 1rem;
-      gap: 1.5rem;
+      flex-wrap: wrap;
+      gap: 1rem;
     }
+
     nav a {
       color: white;
       text-decoration: none;
       font-weight: bold;
-      border: 2px solid white;
-      padding: 10px 20px;
-      border-radius: 8px;
+      padding: 0.5rem 1rem;
+      border-radius: 10px;
       transition: 0.3s;
     }
+
     nav a:hover {
-      background-color: white;
+      background: white;
       color: black;
     }
-    .product-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 3rem 1rem;
+
+    h1 {
       text-align: center;
-    }
-    .product-container img {
-      max-width: 400px;
-      width: 100%;
-      border-radius: 12px;
-    }
-    .price {
-      margin-top: 1rem;
-      font-size: 1.5rem;
-    }
-    .price del {
-      color: #888;
-    }
-    .price span {
-      color: #00ffcc;
-      font-weight: bold;
-    }
-    .buy-button {
       margin-top: 2rem;
-      background-color: #00ffcc;
-      color: black;
-      padding: 12px 24px;
-      border: none;
+      font-size: 2.5rem;
+    }
+
+    .grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 2rem;
+      gap: 2rem;
+    }
+
+    .product {
+      width: 300px;
+      border: 2px solid #ccc;
+      padding: 1rem;
+      border-radius: 10px;
+      text-align: center;
+      background: #f9f9f9;
+    }
+
+    .product img {
+      width: 100%;
+      height: 300px;
+      object-fit: contain;
+      border-radius: 10px;
+      cursor: pointer;
+      background: white;
+    }
+
+    .product select {
+      width: 100%;
+      padding: 8px;
+      margin-top: 0.5rem;
       font-weight: bold;
-      font-size: 1rem;
+    }
+
+    .buy-button button {
+      margin-top: 1rem;
+      background: #00ffcc;
+      color: black;
+      padding: 10px 20px;
+      font-weight: bold;
+      border: none;
       border-radius: 6px;
       cursor: pointer;
+    }
+
+    .footer {
+      margin-top: 3rem;
+      text-align: center;
+      background: #000;
+      color: #fff;
+      padding: 1rem;
+    }
+
+    .cart-icon {
+      position: fixed;
+      top: 15px;
+      right: 20px;
+      background-color: #00ffcc;
+      color: black;
+      padding: 10px 18px;
+      border-radius: 30px;
+      font-weight: bold;
       text-decoration: none;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+      z-index: 999;
     }
   </style>
 </head>
 <body>
   <nav>
-  <a href="index.html">Home</a>
-  <a href="footwear.html">Footwear</a>
-  <a href="clothing.html">Clothing</a>
-  <a href="shorts.html">Shorts</a>
-  <a href="bags.html">Bags</a>
-  <a href="headphones.html">Headphones</a>
-  <a href="accessories.html">Accessories</a>
-</nav>
+    <a href="index.html">Home</a>
+    <a href="footwear.html">Footwear</a>
+    <a href="clothing.html">Clothing</a>
+    <a href="shorts.html">Shorts</a>
+    <a href="bags.html">Bags</a>
+    <a href="headphones.html">Headphones</a>
+    <a href="accessories.html">Accessories</a>
+  </nav>
 
+  <a class="cart-icon" href="cart.html">🛒 Cart (<span id="cart-count">0</span>)</a>
+  <h1>Discounts</h1>
+  <div class="grid" id="product-grid"></div>
 
-  <div class="product-container">
-    <img src="pinkmarni.png" alt="Marni Slippers (Multiple Colors)">
-    <h1>Marni Slippers (Multiple Colors)</h1>
-    <div class="price">
-      <del>$700</del> <span>$500</span>
-    </div>
-    <a class="buy-button" href="https://buy.stripe.com/test_fZu3co0bf4YjbYR89f7N60r" target="_blank">Buy Now</a>
+  <div class="footer">
+    <p>© 2025 SURFZ RESELLS | All Rights Reserved</p>
   </div>
+
+  <script>
+    const products = [
+      {
+        name: "Marni Slippers (Multiple Colors)",
+        price: 500,
+        images: [
+          "pinkmarni.png",
+          "orangemarni.png",
+          "beigemarni.png",
+          "bluemarni.png",
+          "brownmarni.png",
+          "greenmarni.png",
+          "purplemarni.png",
+          "redmarni.png",
+          "yellowmarni.png"
+        ],
+        sizes: ["EU 39", "EU 40", "EU 41", "EU 42", "EU 43", "EU 44", "EU 45", "EU 46", "EU 47"]
+      }
+    ];
+
+    let imageIndexes = Array(products.length).fill(0);
+
+    function rotateImage(id, idx) {
+      imageIndexes[idx] = (imageIndexes[idx] + 1) % products[idx].images.length;
+      document.getElementById(id).src = products[idx].images[imageIndexes[idx]];
+    }
+
+    function addToCart(name, price, sizeId) {
+      const size = document.getElementById(sizeId).value;
+      if (!size) return alert("Please select a size!");
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      const product = products.find(p => p.name === name);
+      cart.push({ name, price, size, image: product.images[0] });
+      localStorage.setItem("cart", JSON.stringify(cart));
+      alert("Added to cart!");
+      updateCartCount();
+    }
+
+    function updateCartCount() {
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      document.getElementById("cart-count").textContent = cart.length;
+    }
+
+    function createProductHTML(product, index) {
+      const options = product.sizes.map(size => `<option value="${size}">${size}</option>`).join("");
+      return `
+        <div class="product">
+          <img id="shoeImg${index}" src="${product.images[0]}" alt="${product.name}" />
+          <h2>${product.name}</h2>
+          <p>$${product.price}</p>
+          <select id="size${index}">
+            <option value="">Select Size</option>
+            ${options}
+          </select>
+          <div class="buy-button">
+            <button id="addBtn${index}">Add to Cart</button>
+          </div>
+        </div>
+      `;
+    }
+
+    document.getElementById("product-grid").innerHTML = products.map(createProductHTML).join("");
+
+    products.forEach((product, index) => {
+      document.getElementById(`addBtn${index}`).addEventListener("click", () => {
+        addToCart(product.name, product.price, `size${index}`);
+      });
+      document.getElementById(`shoeImg${index}`).addEventListener("click", () => {
+        rotateImage(`shoeImg${index}`, index);
+      });
+    });
+
+    updateCartCount();
+  </script>
 </body>
 </html>
