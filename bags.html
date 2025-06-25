@@ -190,19 +190,20 @@
   }
 
   function addToCart(baseName, price, colorId, imageName) {
-    const colorSelect = document.getElementById(colorId);
-    let color = "Standard";
-    if (colorSelect) {
-      color = colorSelect.value;
-      if (!color) return alert("Please select a color!");
-      baseName = `${baseName} (${color})`; // 👈 append color to name
-    }
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
-    cart.push({ name: baseName, price, size: color, image: imageName });
-    localStorage.setItem("cart", JSON.stringify(cart));
-    alert("Added to cart!");
-    updateCartCount();
+  const colorSelect = document.getElementById(colorId);
+  let color = "Standard";
+  if (colorSelect) {
+    color = colorSelect.value;
+    if (!color) return alert("Please select a color!");
   }
+
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+  cart.push({ name: baseName, price, size: color, image: imageName });
+  localStorage.setItem("cart", JSON.stringify(cart));
+  alert("Added to cart!");
+  updateCartCount();
+}
+
 
   function updateCartCount() {
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
