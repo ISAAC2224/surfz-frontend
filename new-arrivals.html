@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>New Arrivals | SURFZ RESELL</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #fff;
+      color: #000;
+      font-family: 'Arial Black', sans-serif;
+    }
+    nav {
+      background-color: #000;
+      padding: 1rem 0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5rem;
+    }
+    nav a {
+      text-decoration: none;
+      color: #fff;
+      font-weight: bold;
+      padding: 10px 20px;
+      border-radius: 10px;
+      transition: 0.3s;
+    }
+    nav a:hover {
+      background-color: #fff;
+      color: #000;
+    }
+    h1 {
+      text-align: center;
+      margin: 2rem;
+    }
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      padding: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .product-card {
+      background-color: #f9f9f9;
+      padding: 1rem;
+      border-radius: 15px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    .product-card img {
+      width: 100%;
+      max-height: 250px;
+      object-fit: contain;
+      border-radius: 10px;
+      transition: transform 0.2s;
+      cursor: pointer;
+    }
+    .product-card img:hover {
+      transform: scale(1.05);
+    }
+    .product-card h2 {
+      font-size: 1.2rem;
+      margin: 1rem 0 0.5rem;
+    }
+    .product-card p {
+      margin: 0.5rem 0;
+    }
+    .product-card button {
+      padding: 10px 20px;
+      font-weight: bold;
+      border: none;
+      background-color: #000;
+      color: #fff;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .product-card button:hover {
+      background-color: #333;
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="footwear.html">Footwear</a>
+    <a href="clothing.html">Clothing</a>
+    <a href="shorts.html">Shorts</a>
+    <a href="bags.html">Bags</a>
+    <a href="headphones.html">Headphones</a>
+    <a href="accessories.html">Accessories</a>
+  </nav>
+
+  <h1>New Arrivals</h1>
+
+  <div class="product-grid">
+    <!-- Pink -->
+    <div class="product-card">
+      <img src="PBVOS1.png" id="shoe-img-1" onclick="switchImage('shoe-img-1', ['PBVOS1.png'])" />
+      <h2>Pink Bottega Veneta Orbit sneakers</h2>
+      <p>$800</p>
+      <button onclick="window.location.href='https://buy.stripe.com/test_14AbIU0bfcqL7IBexD7N60A'">Buy Now</button>
+    </div>
+
+    <!-- Silver -->
+    <div class="product-card">
+      <img src="SBVOS1.png" id="shoe-img-2" onclick="switchImage('shoe-img-2', ['SBVOS1.png'])" />
+      <h2>Silver Bottega Veneta Orbit sneakers</h2>
+      <p>$800</p>
+      <button onclick="window.location.href='https://buy.stripe.com/test_cNifZa7DH3Uf3slexD7N60B'">Buy Now</button>
+    </div>
+
+    <!-- Black -->
+    <div class="product-card">
+      <img src="BBVOS1.png" alt="Black Bottega Veneta Orbit sneakers" style="height: 250px; object-fit: contain;" />
+
+      <h2>Black Bottega Veneta Orbit sneakers</h2>
+      <p>$800</p>
+      <button onclick="window.location.href='https://buy.stripe.com/test_fZu3co7DH9ez5AtexD7N60C'">Buy Now</button>
+    </div>
+  </div>
+
+  <script>
+    function switchImage(id, images) {
+      const img = document.getElementById(id);
+      let index = parseInt(img.getAttribute('data-index')) || 0;
+      index = (index + 1) % images.length;
+      img.src = images[index];
+      img.setAttribute('data-index', index);
+    }
+  </script>
+
+</body>
+</html>
